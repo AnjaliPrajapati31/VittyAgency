@@ -1,37 +1,23 @@
-import React, { useEffect } from 'react'
-import { motion, useMotionValue, useTransform, animate, AnimatePresence } from 'framer-motion'
-
-const LETTERS = ['V', 'I', 'T', 'T', 'Y']
-
-// Sub-component to handle hooks for each individual letter
-const AnimatedLetter = ({ letter, index, total, progress }) => {
-  const start = index / total
-  const end = (index + 0.5) / total
-  const opacity = useTransform(progress, [start, end], [0, 1])
-  const y = useTransform(progress, [start, end], [10, 0])
-
-  return (
-    <motion.span style={{ opacity, y, display: 'inline-block' }}>
-      {letter}
-    </motion.span>
-  )
-}
+import React, { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Loader({ onComplete }) {
-  const progress = useMotionValue(0)
-  const barWidth = useTransform(progress, [0, 1], ['0%', '100%'])
+  const [text, setText] = useState('')
+  const fullText = "VITTY"
 
   useEffect(() => {
-    const controls = animate(progress, 1, {
-      duration: 2.2,
-      ease: "easeInOut",
-      onComplete: () => {
-        // Slight pause at the end for impact before revealing the site
+    let index = 0;
+    const interval = setInterval(() => {
+      setText(fullText.slice(0, index + 1))
+      index++
+      if (index === fullText.length) {
+        clearInterval(interval)
         setTimeout(() => onComplete(), 500)
       }
-    })
-    return () => controls.stop()
-  }, [progress, onComplete])
+    }, 150) // Typing speed
+    
+    return () => clearInterval(interval)
+  }, [onComplete])
 
   return (
     <motion.div
@@ -44,47 +30,47 @@ export default function Loader({ onComplete }) {
         alignItems: 'center', justifyContent: 'center',
       }}
     >
-      <div style={{ width: 'fit-content' }}>
-        <div style={{
+      <div style={{
           display: 'flex',
-          gap: '0.15em',
-          fontFamily: 'var(--font-display, sans-serif)',
-          fontSize: 'clamp(3rem, 8vw, 6rem)',
-          fontWeight: 900,
-          letterSpacing: '0.1em',
-          color: '#fff',
-          marginBottom: '0.5rem'
-        }}>
-          {LETTERS.map((char, i) => (
-            <AnimatedLetter 
-              key={i} 
-              letter={char} 
-              index={i} 
-              total={LETTERS.length} 
-              progress={progress} 
-            />
-          ))}
-          <motion.span 
-            style={{ 
-              color: '#00d4ff', 
-              opacity: useTransform(progress, [0.9, 1], [0, 1]) 
+          alignItems: 'center',
+      }}>
+        <motion.span
+          layoutId="vitty-logo"
+          transition={{ duration: 0.8, ease: [0.6, 0.01, -0.05, 0.95] }}
+          style={{
+              fontFamily: 'var(--font-display, sans-serif)',
+              fontSize: 'clamp(3rem, 8vw, 6rem)',
+              fontWeight: 900,
+              letterSpacing: '3px',
+              color: '#ffffff',
+              textTransform: 'uppercase',
+              margin: 0,
+              lineHeight: 1,
             }}
-          >
-            .
-          </motion.span>
-        </div>
-
-        {/* Progress Bar */}
-        <div style={{ width: '100%', height: '2px', background: 'rgba(255,255,255,0.1)', overflow: 'hidden' }}>
-          <motion.div
-            style={{
-              width: barWidth,
-              height: '100%',
-              background: '#fff',
-              boxShadow: '0 0 10px #fff'
-            }}
-          />
-        </div>
+        >
+          {text}
+        </motion.span>
+        
+        {/* Blinking cursor */}
+        <AnimatePresence>
+          {text.length <= fullText.length && (
+            <motion.span
+              exit={{ opacity: 0 }}
+              animate={{ opacity: [1, 0] }}
+              transition={{ repeat: Infinity, duration: 0.8, repeatType: 'reverse' }}
+              style={{
+                fontFamily: 'var(--font-display, sans-serif)',
+                fontSize: 'clamp(3rem, 8vw, 6rem)',
+                fontWeight: 300,
+                color: '#ffffff',
+                lineHeight: 1,
+                marginLeft: '5px',
+              }}
+            >
+              |
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   )

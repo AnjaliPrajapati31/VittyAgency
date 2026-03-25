@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { label: 'Contact',  href: '#contact'  },
 ]
 
-export default function Navbar() {
+export default function Navbar({ loaderDone = true }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -51,24 +51,37 @@ export default function Navbar() {
           onClick={(e) => handleNav(e, '#hero')}
           className="nav-logo"
           style={{
-            display: 'inline-flex',
+            display: 'flex',
             alignItems: 'center',
-            gap: 10,
+            justifyContent: 'center',
             textDecoration: 'none',
           }}
           aria-label="Vitty home"
         >
-          <img
-            src="/favicon.png"
-            alt="Vitty"
-            className="nav-logo-img"
-            style={{
-              width: scrolled ? 310 : 322,
-              height: scrolled ? 310 : 322,
-              objectFit: 'contain',
-              transition: 'width 0.3s, height 0.3s',
-            }}
-          />
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Hidden placeholder for width allocation while animating */}
+            <span style={{ opacity: 0, fontSize: scrolled ? '1.5rem' : '1.8rem', fontWeight: 900, letterSpacing: '3px', textTransform: 'uppercase' }}>
+              VITTY
+            </span>
+            {loaderDone && (
+              <motion.span
+                layoutId="vitty-logo"
+                transition={{ duration: 0.8, ease: [0.6, 0.01, -0.05, 0.95] }}
+                style={{
+                  position: 'absolute',
+                  fontFamily: 'var(--font-display, sans-serif)',
+                  fontSize: scrolled ? '1.5rem' : '1.8rem',
+                  fontWeight: 900,
+                  color: '#ffffff',
+                  letterSpacing: '3px',
+                  textTransform: 'uppercase',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                VITTY
+              </motion.span>
+            )}
+          </div>
         </a>
 
         {/* Desktop links */}
@@ -188,7 +201,6 @@ export default function Navbar() {
           .nav-desktop { display: none !important; }
           .nav-mobile { display: flex !important; }
           .nav-logo { margin-right: auto; }
-          .nav-logo-img { width: 140px !important; height: 140px !important; }
         }
         @media (min-width: 769px) {
           .nav-mobile { display: none !important; }
