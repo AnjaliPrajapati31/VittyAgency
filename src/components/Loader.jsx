@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Loader({ onComplete }) {
-  const [text, setText] = useState('')
+  const [textIndex, setTextIndex] = useState(0)
   const fullText = "VITTY"
 
   useEffect(() => {
-    let index = 0;
     const interval = setInterval(() => {
-      setText(fullText.slice(0, index + 1))
-      index++
-      if (index === fullText.length) {
-        clearInterval(interval)
-        setTimeout(() => onComplete(), 500)
-      }
+      setTextIndex(prev => {
+        if (prev >= fullText.length) {
+          clearInterval(interval)
+          setTimeout(() => onComplete(), 500)
+          return prev
+        }
+        return prev + 1
+      })
     }, 150) // Typing speed
     
     return () => clearInterval(interval)
@@ -24,7 +25,7 @@ export default function Loader({ onComplete }) {
       exit={{ opacity: 0, transition: { duration: 0.8 } }}
       style={{
         position: 'fixed', inset: 0,
-        background: 'var(--navy)',
+        background: 'rgba(4, 14, 44, 1)',
         zIndex: 99999,
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
@@ -33,6 +34,8 @@ export default function Loader({ onComplete }) {
       <div style={{
           display: 'flex',
           alignItems: 'center',
+          overflow: 'hidden',
+          padding: '10px',
       }}>
         <motion.span
           layoutId="vitty-logo"
@@ -46,14 +49,52 @@ export default function Loader({ onComplete }) {
               textTransform: 'uppercase',
               margin: 0,
               lineHeight: 1,
+              display: 'inline-flex',
+              whiteSpace: 'nowrap',
             }}
         >
-          {text}
+          {fullText.split('').map((char, i) => (
+             <motion.span
+               key={i}
+               style={{ position: 'relative', display: 'inline-block' }}
+             >
+               {/* Left Half (Vertical Split) */}
+               <motion.span
+                 initial={{ y: '-80%', opacity: 0 }}
+                 animate={ i < textIndex ? { y: '0%', opacity: 1 } : { y: '-80%', opacity: 0 } }
+                 transition={{ duration: 0.4, ease: 'easeOut' }}
+                 style={{ 
+                   position: 'absolute', 
+                   left: 0, top: 0, 
+                   clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' 
+                 }}
+               >
+                 {char}
+               </motion.span>
+               
+               {/* Right Half (Vertical Split) */}
+               <motion.span
+                 initial={{ y: '80%', opacity: 0 }}
+                 animate={ i < textIndex ? { y: '0%', opacity: 1 } : { y: '80%', opacity: 0 } }
+                 transition={{ duration: 0.4, ease: 'easeOut' }}
+                 style={{ 
+                   position: 'absolute', 
+                   left: 0, top: 0, 
+                   clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)' 
+                 }}
+               >
+                 {char}
+               </motion.span>
+
+               {/* Hidden placeholder for sizing */}
+               <span style={{ opacity: 0 }}>{char}</span>
+             </motion.span>
+          ))}
         </motion.span>
         
         {/* Blinking cursor */}
         <AnimatePresence>
-          {text.length <= fullText.length && (
+          {textIndex <= fullText.length && (
             <motion.span
               exit={{ opacity: 0 }}
               animate={{ opacity: [1, 0] }}
