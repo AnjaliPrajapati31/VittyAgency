@@ -144,14 +144,6 @@ function ServiceCard({ num, tag, name, desc, icon, delay }) {
         {name}
       </div>
       <div style={{ fontSize: '0.93rem', lineHeight: 1.75, color: 'var(--white-muted)' }}>{desc}</div>
-      <div style={{
-        display: 'inline-flex', alignItems: 'center', gap: hov ? 14 : 8,
-        fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
-        letterSpacing: '2px', color: 'var(--cyan)', marginTop: '1.5rem',
-        transition: 'gap 0.2s',
-      }}>
-        Learn more →
-      </div>
     </motion.div>
   )
 }
