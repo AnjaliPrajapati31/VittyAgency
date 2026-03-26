@@ -208,6 +208,7 @@ function SocialBtn({ icon, href, onClick }) {
       <img 
         src={icon} 
         alt="social icon" 
+        loading="lazy"
         style={{ 
           width: 18, 
           height: 18, 

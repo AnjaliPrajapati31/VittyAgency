@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import avifBg from '../assets/Gears_moving_slow_202603221659-ezgif.com-video-to-avif-converter.avif'
+import mobileBg from '../assets/gear-mobile.png'
 
 const STATS = [
   { num: '87', suffix: '%', label: 'Time Saved\nPer Week' },
@@ -38,23 +39,22 @@ export default function Hero() {
       id="hero"
       style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}
     >
-      {/* AVIF background */}
+      {/* Background Images */}
       <img
         src={avifBg}
+        className="vitty-hero-bg vitty-desktop-bg"
         alt=""
         aria-hidden="true"
-        style={{
-          position: 'absolute', inset: 0,
-          width: '100%', height: '100%',
-          objectFit: 'cover', zIndex: 0,
-        }}
+      />
+      <img
+        src={mobileBg}
+        className="vitty-hero-bg vitty-mobile-bg"
+        alt=""
+        aria-hidden="true"
       />
 
       {/* Dark overlay */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'rgba(4, 6, 20, 0.55)', zIndex: 1,
-      }} />
+      <div className="vitty-hero-overlay" />
 
       {/* Radial glow */}
       <div style={{
@@ -149,6 +149,27 @@ export default function Hero() {
 
       <style>{`
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .vitty-hero-bg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          z-index: 0;
+        }
+        .vitty-desktop-bg { display: block; }
+        .vitty-mobile-bg { display: none; }
+        .vitty-hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(4, 6, 20, 0.55);
+          z-index: 1;
+        }
+        @media (max-width: 768px) {
+          .vitty-desktop-bg { display: none; }
+          .vitty-mobile-bg { display: block; }
+          .vitty-hero-overlay { background: rgba(4, 6, 20, 0.75); }
+        }
       `}</style>
     </section>
   )

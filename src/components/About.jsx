@@ -15,9 +15,15 @@ export default function About() {
   const [rightRef, rightVisible] = useReveal()
 
   useEffect(() => {
+    if (!leftVisible) return;
+
     let THREE, renderer, scene, camera, torus, torusWire, ring1, ring2, points, raf
+    let isInitialized = false;
 
     const init = async () => {
+      if (isInitialized) return;
+      isInitialized = true;
+
       THREE = await import('three')
       const canvas = canvasRef.current
       if (!canvas) return
@@ -94,7 +100,7 @@ export default function About() {
 
     init()
     return () => { cancelAnimationFrame(raf); }
-  }, [])
+  }, [leftVisible])
 
   return (
     <section id="about" style={{

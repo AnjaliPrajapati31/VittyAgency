@@ -1,24 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useEffect } from 'react'
+import { motion } from 'framer-motion'
 
 export default function Loader({ onComplete }) {
-  const [textIndex, setTextIndex] = useState(0)
   const fullText = "VITTY"
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTextIndex(prev => {
-        if (prev >= fullText.length) {
-          clearInterval(interval)
-          setTimeout(() => onComplete(), 500)
-          return prev
-        }
-        return prev + 1
-      })
-    }, 150) // Typing speed
-    
-    return () => clearInterval(interval)
+    // 5 chars * 150ms (stagger) + 400ms duration + 500ms visual hangtime = ~1650ms
+    const timer = setTimeout(() => onComplete(), 1650)
+    return () => clearTimeout(timer)
   }, [onComplete])
+
+  const containerVar = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.15 } }
+  }
+
+  const topVar = {
+    hidden: { y: '-80%', opacity: 0 },
+    show: { y: '0%', opacity: 1, transition: { duration: 0.4, ease: 'easeOut' } }
+  }
+
+  const bottomVar = {
+    hidden: { y: '80%', opacity: 0 },
+    show: { y: '0%', opacity: 1, transition: { duration: 0.4, ease: 'easeOut' } }
+  }
 
   return (
     <motion.div
@@ -39,6 +44,9 @@ export default function Loader({ onComplete }) {
       }}>
         <motion.span
           layoutId="vitty-logo"
+          variants={containerVar}
+          initial="hidden"
+          animate="show"
           transition={{ duration: 0.8, ease: [0.6, 0.01, -0.05, 0.95] }}
           style={{
               fontFamily: 'var(--font-display, sans-serif)',
@@ -60,9 +68,7 @@ export default function Loader({ onComplete }) {
              >
                {/* Left Half (Vertical Split) */}
                <motion.span
-                 initial={{ y: '-80%', opacity: 0 }}
-                 animate={ i < textIndex ? { y: '0%', opacity: 1 } : { y: '-80%', opacity: 0 } }
-                 transition={{ duration: 0.4, ease: 'easeOut' }}
+                 variants={topVar}
                  style={{ 
                    position: 'absolute', 
                    left: 0, top: 0, 
@@ -74,9 +80,7 @@ export default function Loader({ onComplete }) {
                
                {/* Right Half (Vertical Split) */}
                <motion.span
-                 initial={{ y: '80%', opacity: 0 }}
-                 animate={ i < textIndex ? { y: '0%', opacity: 1 } : { y: '80%', opacity: 0 } }
-                 transition={{ duration: 0.4, ease: 'easeOut' }}
+                 variants={bottomVar}
                  style={{ 
                    position: 'absolute', 
                    left: 0, top: 0, 
@@ -93,25 +97,20 @@ export default function Loader({ onComplete }) {
         </motion.span>
         
         {/* Blinking cursor */}
-        <AnimatePresence>
-          {textIndex <= fullText.length && (
-            <motion.span
-              exit={{ opacity: 0 }}
-              animate={{ opacity: [1, 0] }}
-              transition={{ repeat: Infinity, duration: 0.8, repeatType: 'reverse' }}
-              style={{
-                fontFamily: 'var(--font-display, sans-serif)',
-                fontSize: 'clamp(3rem, 8vw, 6rem)',
-                fontWeight: 300,
-                color: '#ffffff',
-                lineHeight: 1,
-                marginLeft: '5px',
-              }}
-            >
-              |
-            </motion.span>
-          )}
-        </AnimatePresence>
+        <motion.span
+          animate={{ opacity: [1, 0] }}
+          transition={{ repeat: Infinity, duration: 0.8, repeatType: 'reverse' }}
+          style={{
+            fontFamily: 'var(--font-display, sans-serif)',
+            fontSize: 'clamp(3rem, 8vw, 6rem)',
+            fontWeight: 300,
+            color: '#ffffff',
+            lineHeight: 1,
+            marginLeft: '5px',
+          }}
+        >
+          |
+        </motion.span>
       </div>
     </motion.div>
   )

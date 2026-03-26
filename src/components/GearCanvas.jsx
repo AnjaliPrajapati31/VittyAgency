@@ -56,15 +56,21 @@ export default function GearCanvas() {
     window.addEventListener('resize', resize)
 
     let raf
-    const animate = () => {
+    let lastTime = 0
+    const frameDelay = 1000 / 30 // ~30 FPS
+
+    const animate = (time) => {
+      raf = requestAnimationFrame(animate)
+      if (time - lastTime < frameDelay) return
+      lastTime = time
+
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       GEARS.forEach((g, i) => {
         angles[i] += g.speed
         drawGear(ctx, g.x * canvas.width, g.y * canvas.height, g.r, g.teeth, angles[i], g.color)
       })
-      raf = requestAnimationFrame(animate)
     }
-    animate()
+    raf = requestAnimationFrame(animate)
 
     return () => { window.removeEventListener('resize', resize); cancelAnimationFrame(raf) }
   }, [])
