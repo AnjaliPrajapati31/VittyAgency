@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import avifBg from '../assets/Gears_moving_slow_202603221659-ezgif.com-video-to-avif-converter.avif'
-import mobileBg from '../assets/gear-mobile.png'
+import heroImg from '../assets/hero.png'
 
 const STATS = [
   { num: '87', suffix: '%', label: 'Time Saved\nPer Week' },
   { num: '60', suffix: '%', label: 'Cost Reduction\nin Ops' },
-  { num: '5x',  suffix: '',  label: 'Average ROI\nWithin 90 Days' },
-  { num: '30',  suffix: '+', label: 'Hours Recovered\nPer Week' },
+  { num: '5x', suffix: '', label: 'Average ROI\nWithin 90 Days' },
+  { num: '30', suffix: '+', label: 'Hours Recovered\nPer Week' },
 ]
 
 export default function Hero() {
@@ -40,18 +39,7 @@ export default function Hero() {
       style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}
     >
       {/* Background Images */}
-      <img
-        src={avifBg}
-        className="vitty-hero-bg vitty-desktop-bg"
-        alt=""
-        aria-hidden="true"
-      />
-      <img
-        src={mobileBg}
-        className="vitty-hero-bg vitty-mobile-bg"
-        alt=""
-        aria-hidden="true"
-      />
+
 
       {/* Dark overlay */}
       <div className="vitty-hero-overlay" />
@@ -69,82 +57,100 @@ export default function Hero() {
         position: 'relative', zIndex: 3,
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
-        minHeight: '100vh', padding: '120px 5vw 80px', textAlign: 'center',
+        minHeight: '100vh', padding: '120px 5vw 80px',
+        maxWidth: 1400, margin: '0 auto'
       }}>
-        <div style={{ maxWidth: 900, width: '100%' }}>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
-              letterSpacing: '3px', textTransform: 'uppercase',
-              color: 'var(--cyan)', marginBottom: '1.5rem',
-            }}
-          >
-            <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: 'var(--cyan)', animation: 'pulse 2s infinite' }} />
-            AI Automation Agency
-          </motion.div>
+        <div className="hero-two-col" style={{ display: 'flex', alignItems: 'center', gap: '4rem', width: '100%' }}>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
-              fontWeight: 900, lineHeight: 1.05,
-              letterSpacing: '-1px', color: 'var(--white)', marginBottom: '1.5rem',
-            }}
-          >
-            Build Smarter.<br />
-            <span style={{ color: 'var(--cyan)' }}>Automate Everything.</span>
-          </motion.h1>
+          <div className="hero-text" style={{ flex: 1, textAlign: 'left' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
+                letterSpacing: '3px', textTransform: 'uppercase',
+                color: 'var(--cyan)', marginBottom: '1.5rem',
+              }}
+            >
+              <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: 'var(--cyan)', animation: 'pulse 2s infinite' }} />
+              AI Automation Agency
+            </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '1.05rem', fontWeight: 400, lineHeight: 1.8,
-              color: 'var(--white)', maxWidth: 600, margin: '0 auto 2.5rem',
-              letterSpacing: '0.5px',
-            }}
-          >
-            Vitty Agency builds intelligent AI automation systems for business coaches who are done trading time for tasks. Save 40+ hours a week, cut costs by up to 60%, and deliver measurable ROI within 30 days.
-          </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
+                fontWeight: 900, lineHeight: 1.05,
+                letterSpacing: '-1px', color: 'var(--white)', marginBottom: '1.5rem',
+              }}
+            >
+              Build Smarter.<br />
+              <span style={{ color: 'var(--cyan)' }}>Automate Everything.</span>
+            </motion.h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.65 }}
-            style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}
-          >
-            <HeroBtn primary href="#contact" onClick={scrollToContact}>Book Free AI Audit →</HeroBtn>
-            <HeroBtn href="#services" onClick={scrollToServices}>Our Services</HeroBtn>
-          </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '1.05rem', fontWeight: 400, lineHeight: 1.8,
+                color: 'var(--white)', maxWidth: 600, marginBottom: '2.5rem',
+                letterSpacing: '0.5px',
+              }}
+            >
+              Vitty Agency builds intelligent AI automation systems for business coaches who are done trading time for tasks. Save 40+ hours a week, cut costs by up to 60%, and deliver measurable ROI within 30 days.
+            </motion.p>
 
-          <motion.div
-            ref={statsRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            style={{
-              display: 'flex', justifyContent: 'center',
-              gap: '3rem', marginTop: '5rem',
-              paddingTop: '3rem',
-              borderTop: '1px solid rgba(26,74,255,0.2)',
-              flexWrap: 'wrap',
-            }}
-          >
-            {STATS.map((s) => (
-              <StatItem key={s.label} {...s} animate={statsVisible} />
-            ))}
-          </motion.div>
+            <motion.div
+              className="hero-btn-group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
+              style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
+            >
+              <HeroBtn primary href="#contact" onClick={scrollToContact}>Book Free AI Audit →</HeroBtn>
+              <HeroBtn href="#services" onClick={scrollToServices}>Our Services</HeroBtn>
+            </motion.div>
+          </div>
+
+          <div className="hero-image-wrapper" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+            <motion.img
+              src={heroImg}
+              alt="Hero Graphic"
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
+              style={{ width: '100%', maxWidth: 650, objectFit: 'contain' }}
+            />
+          </div>
+
         </div>
+
+        <motion.div
+          ref={statsRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          style={{
+            display: 'flex', justifyContent: 'center', width: '100%',
+            gap: '3rem', marginTop: '5rem',
+            paddingTop: '3rem',
+            borderTop: '1px solid rgba(26,74,255,0.2)',
+            flexWrap: 'wrap',
+          }}
+        >
+          {STATS.map((s) => (
+            <StatItem key={s.label} {...s} animate={statsVisible} />
+          ))}
+        </motion.div>
+
       </div>
 
       <style>{`
@@ -164,6 +170,12 @@ export default function Hero() {
           inset: 0;
           background: rgba(4, 6, 20, 0.55);
           z-index: 1;
+        }
+        @media (max-width: 992px) {
+          .hero-two-col { flex-direction: column; text-align: center; }
+          .hero-text { text-align: center !important; display: flex; flex-direction: column; alignItems: center; }
+          .hero-text p { margin-left: auto; margin-right: auto; }
+          .hero-btn-group { justify-content: center !important; }
         }
         @media (max-width: 768px) {
           .vitty-desktop-bg { display: none; }

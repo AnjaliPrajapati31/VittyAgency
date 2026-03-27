@@ -22,8 +22,8 @@ export default function App() {
 
   const handleLoaderComplete = () => {
     setTimeout(() => {
+      setLoaderVisible(false)
       setLoaderDone(true)
-      setTimeout(() => setLoaderVisible(false), 900)
     }, 400)
   }
 

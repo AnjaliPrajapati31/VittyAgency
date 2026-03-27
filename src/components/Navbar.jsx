@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const NAV_LINKS = [
   { label: 'Services', href: '#services' },
-  { label: 'Process',  href: '#process'  },
-  { label: 'About',    href: '#about'    },
-  { label: 'Contact',  href: '#contact'  },
+  { label: 'About', href: '#about' },
+  { label: 'Process', href: '#process' },
+  { label: 'Contact', href: '#contact' },
 ]
 
-export default function Navbar({ loaderDone = true }) {
+export default function Navbar({ loaderDone }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -25,101 +25,85 @@ export default function Navbar({ loaderDone = true }) {
     setMenuOpen(false)
   }
 
+  // Define the common transition for the shared element and other nav items
+  const sharedTransition = { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] };
+
   return (
     <>
       <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        initial={{ y: 0, opacity: 0 }}
+        animate={loaderDone ? { y: 0, opacity: 1 } : { y: 0, opacity: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
         style={{
           position: 'fixed', top: 0, left: 0, right: 0,
           zIndex: 1000,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-end',
           padding: '0 5vw',
           height: scrolled ? 80 : 72,
           background: 'rgba(4, 14, 44, 0.88)',
           backdropFilter: 'blur(20px)',
           borderBottom: `1px solid rgba(26,74,255,${scrolled ? 0.4 : 0.2})`,
-          transition: 'height 0.3s, border-color 0.3s',
+          transition: 'height 0.3s, border-color 0.3s, background-color 0.3s',
         }}
       >
-        {/* Logo */}
+        {/* Logo Container */}
         <a
           href="#hero"
           onClick={(e) => handleNav(e, '#hero')}
           className="nav-logo"
           style={{
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
             textDecoration: 'none',
           }}
           aria-label="Vitty home"
         >
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {/* Hidden placeholder for width allocation while animating */}
-            <span style={{ opacity: 0, fontSize: scrolled ? '1.5rem' : '1.8rem', fontWeight: 900, letterSpacing: '3px', textTransform: 'uppercase' }}>
-              VITTY
-            </span>
-            {loaderDone && (
-              <motion.span
-                layoutId="vitty-logo"
-                transition={{ duration: 0.8, ease: [0.6, 0.01, -0.05, 0.95] }}
-                style={{
-                  position: 'absolute',
-                  fontFamily: 'var(--font-display, sans-serif)',
-                  fontSize: scrolled ? '1.5rem' : '1.8rem',
-                  fontWeight: 900,
-                  color: '#ffffff',
-                  letterSpacing: '3px',
-                  textTransform: 'uppercase',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                VITTY
-              </motion.span>
-            )}
-          </div>
+          <motion.span
+            layoutId="vitty-logo"
+            layout // Enable layout animation
+            transition={sharedTransition} // Use the same transition settings
+            style={{
+              fontFamily: 'var(--font-display, sans-serif)',
+              fontSize: scrolled ? '1.5rem' : '1.8rem', // Slightly shrink on scroll
+              fontWeight: 900,
+              color: '#ffffff',
+              letterSpacing: '3px',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+              display: 'inline-block',
+            }}
+          >
+            VITTY
+          </motion.span>
         </a>
 
         {/* Desktop links */}
-        <ul style={{ display: 'flex', gap: '2.5rem', listStyle: 'none', margin: 0 }}
+        <ul style={{ display: 'flex', gap: '2.5rem', listStyle: 'none', margin: 0, padding: 0 }}
           className="nav-desktop">
-          {NAV_LINKS.map(({ label, href }) => (
-            <li key={label}>
+          {NAV_LINKS.map(({ label, href }, i) => (
+            <motion.li
+              key={label}
+              initial={{ y: -20, opacity: 0 }}
+              animate={loaderDone ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
+              // Staggered animation for nav links
+              transition={{ duration: 0.5, delay: 0.8 + i * 0.1, ease: 'easeOut' }}
+            >
               <NavLink label={label} href={href} onClick={(e) => handleNav(e, href)} />
-            </li>
+            </motion.li>
           ))}
         </ul>
 
-        {/* CTA */}
-        <a
-          href="#contact"
-          onClick={(e) => handleNav(e, '#contact')}
-          className="nav-desktop"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '0.72rem',
-            fontWeight: 700,
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-            color: 'var(--black)',
-            background: 'var(--cyan)',
-            padding: '10px 22px',
-            textDecoration: 'none',
-            clipPath: 'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)',
-            transition: 'background 0.2s, box-shadow 0.2s',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.background = 'var(--white)'; e.currentTarget.style.boxShadow = '0 0 24px rgba(0,212,255,0.5)' }}
-          onMouseLeave={e => { e.currentTarget.style.background = 'var(--cyan)'; e.currentTarget.style.boxShadow = 'none' }}
-        >
-          Free AI Audit
-        </a>
-
-        {/* Hamburger */}
-        <button
+        {/* Hamburger Menu Button (Mobile) */}
+        <motion.button
+          initial={{ y: -20, opacity: 0 }}
+          animate={loaderDone ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 + NAV_LINKS.length * 0.1, ease: 'easeOut' }}
           className="nav-mobile"
           onClick={() => setMenuOpen(v => !v)}
           style={{
@@ -131,18 +115,19 @@ export default function Navbar({ loaderDone = true }) {
           {[0, 1, 2].map(i => (
             <span key={i} style={{
               display: 'block', width: 24, height: 2,
-              background: menuOpen && i === 1 ? 'transparent' : 'var(--cyan)',
+              // Middle line disappears when menu is open
+              background: menuOpen && i === 1 ? 'transparent' : 'var(--cyan, #00d4ff)',
               transform: menuOpen
                 ? i === 0 ? 'rotate(45deg) translate(5px,5px)'
-                : i === 2 ? 'rotate(-45deg) translate(5px,-5px)' : 'none'
+                  : i === 2 ? 'rotate(-45deg) translate(5px,-5px)' : 'none'
                 : 'none',
               transition: 'all 0.3s',
             }} />
           ))}
-        </button>
+        </motion.button>
       </motion.nav>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -151,10 +136,10 @@ export default function Navbar({ loaderDone = true }) {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
             style={{
-              position: 'fixed', top: 60, left: 0, right: 0,
+              position: 'fixed', top: 72, left: 0, right: 0,
               background: 'rgba(5,8,16,0.97)',
               backdropFilter: 'blur(20px)',
-              borderBottom: '1px solid var(--navy-border)',
+              borderBottom: '1px solid var(--navy-border, rgba(26,74,255,0.2))',
               padding: '2rem 5vw',
               zIndex: 999,
               display: 'flex', flexDirection: 'column', gap: '1.2rem',
@@ -166,50 +151,37 @@ export default function Navbar({ loaderDone = true }) {
                 href={href}
                 onClick={(e) => handleNav(e, href)}
                 style={{
-                  fontFamily: 'var(--font-body)',
+                  fontFamily: 'var(--font-body, sans-serif)',
                   fontWeight: 600, fontSize: '1.1rem',
                   letterSpacing: '3px', textTransform: 'uppercase',
-                  color: 'var(--white-dim)', textDecoration: 'none',
+                  color: 'var(--white-dim, rgba(255,255,255,0.7))', textDecoration: 'none',
                   paddingBottom: '1rem',
-                  borderBottom: '1px solid var(--navy-border)',
+                  borderBottom: '1px solid var(--navy-border, rgba(26,74,255,0.2))',
                 }}
               >
                 {label}
               </a>
             ))}
-            <a
-              href="#contact"
-              onClick={(e) => handleNav(e, '#contact')}
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '0.8rem', fontWeight: 700,
-                letterSpacing: '2px', textTransform: 'uppercase',
-                color: 'var(--black)', background: 'var(--cyan)',
-                padding: '12px 24px', textDecoration: 'none',
-                textAlign: 'center', marginTop: '0.5rem',
-                clipPath: 'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)',
-              }}
-            >
-              Free AI Audit
-            </a>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Mobile/Desktop display rules */}
       <style>{`
         @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
           .nav-mobile { display: flex !important; }
-          .nav-logo { margin-right: auto; }
         }
         @media (min-width: 769px) {
           .nav-mobile { display: none !important; }
+          .nav-desktop { display: flex !important; }
         }
       `}</style>
     </>
   )
 }
 
+// NavLink component with hover effect
 function NavLink({ label, href, onClick }) {
   const [hov, setHov] = useState(false)
   return (
@@ -219,10 +191,10 @@ function NavLink({ label, href, onClick }) {
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
-        fontFamily: 'var(--font-body)',
+        fontFamily: 'var(--font-body, sans-serif)',
         fontWeight: 600, fontSize: '0.85rem',
         letterSpacing: '2px', textTransform: 'uppercase',
-        color: hov ? 'var(--cyan)' : 'var(--white-dim)',
+        color: hov ? 'var(--cyan, #00d4ff)' : 'var(--white-dim, rgba(255,255,255,0.7))',
         textDecoration: 'none',
         position: 'relative',
         transition: 'color 0.2s',
@@ -233,8 +205,9 @@ function NavLink({ label, href, onClick }) {
       <span style={{
         position: 'absolute', bottom: 0, left: 0,
         height: 1, width: hov ? '100%' : 0,
-        background: 'var(--cyan)', transition: 'width 0.3s',
+        background: 'var(--cyan, #00d4ff)', transition: 'width 0.3s',
       }} />
     </a>
   )
 }
+
