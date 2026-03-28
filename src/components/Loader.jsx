@@ -55,13 +55,16 @@ export default function Loader({ onComplete }) {
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
-        padding: '10px 10px 30px 10px',
+        padding: '20px 10px 20px 10px',
       }}>
         <motion.span
-          layoutId="vitty-logo"
           variants={typed ? undefined : containerVar}
           initial="hidden"
           animate="show"
+          exit={{ 
+            fontSize: '1.8rem',
+            transition: { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }
+          }}
           style={{
             fontFamily: 'var(--font-display, sans-serif)',
             fontSize: 'clamp(3rem, 8vw, 6rem)',

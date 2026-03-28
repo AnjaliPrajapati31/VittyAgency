@@ -48,7 +48,6 @@ export default function Navbar({ loaderDone }) {
           transition: 'height 0.3s, border-color 0.3s, background-color 0.3s',
         }}
       >
-        {/* Logo Container */}
         <a
           href="#hero"
           onClick={(e) => handleNav(e, '#hero')}
@@ -65,9 +64,6 @@ export default function Navbar({ loaderDone }) {
           aria-label="Vitty home"
         >
           <motion.span
-            layoutId="vitty-logo"
-            layout // Enable layout animation
-            transition={sharedTransition} // Use the same transition settings
             style={{
               fontFamily: 'var(--font-display, sans-serif)',
               fontSize: scrolled ? '1.5rem' : '1.8rem', // Slightly shrink on scroll
@@ -77,6 +73,7 @@ export default function Navbar({ loaderDone }) {
               textTransform: 'uppercase',
               whiteSpace: 'nowrap',
               display: 'inline-block',
+              transition: 'font-size 0.3s'
             }}
           >
             VITTY
