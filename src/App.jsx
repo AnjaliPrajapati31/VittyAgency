@@ -1,9 +1,8 @@
 import React, { useState, Suspense, lazy } from 'react'
 import { AnimatePresence } from 'framer-motion'
 
-// Keep the Loader and Cursor as standard imports so they appear immediately
+// Keep the Loader as a standard import so it appears immediately
 import Loader from './components/Loader.jsx'
-import Cursor from './components/Cursor.jsx'
 
 // Lazy load the rest of the components
 const GearCanvas = lazy(() => import('./components/GearCanvas.jsx'))
@@ -32,7 +31,6 @@ export default function App() {
       <AnimatePresence>
         {loaderVisible && <Loader onComplete={handleLoaderComplete} />}
       </AnimatePresence>
-      <Cursor />
 
       {/* Fixed background grid */}
       <div style={{
