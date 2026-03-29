@@ -7,22 +7,22 @@ const STEPS = [
   {
     num: '01',
     title: 'Free AI Audit',
-    desc: 'We conduct a deep audit of every process in your coaching operation — identifying every operational leak, every manual task, and every missed automation opportunity. You walk away with a custom roadmap and projected ROI — even if you don\'t hire us.',
+    desc: 'We conduct a deep audit of every process in your coaching operation, identifying every operational leak, every manual task, and every missed automation opportunity. You walk away with a custom roadmap and projected ROI, even if you don\'t hire us.',
   },
   {
     num: '02',
     title: 'System Architecture',
-    desc: 'We design your complete AI automation stack: CRM connections, lead pipelines, onboarding flows, communication triggers, and performance dashboards — all built around your specific coaching model and revenue goals.',
+    desc: 'We design your complete AI automation stack: CRM connections, lead pipelines, onboarding flows, communication triggers, and performance dashboards, all built around your specific coaching model and revenue goals.',
   },
   {
     num: '03',
     title: 'Precision Deployment',
-    desc: 'Our team deploys your entire system with zero disruption to your existing operations. Within 30 days, your business is running on intelligent automation — client intake, follow-ups, scheduling, and reporting all handled automatically.',
+    desc: 'Our team deploys your entire system with zero disruption to your existing operations. Within 30 days, your business is running on intelligent automation including client intake, follow-ups, scheduling, and reporting all handled automatically.',
   },
   {
     num: '04',
     title: 'Optimise & Scale',
-    desc: 'Your systems get smarter over time. We continuously monitor performance, run optimisations, and scale what\'s working — compounding your cost savings and revenue gains month after month. Most clients break even within 30 days. Then they just profit.',
+    desc: 'Your systems get smarter over time. We continuously monitor performance, run optimisations, and scale what\'s working that includescompounding your cost savings and revenue gains month after month. Most clients break even within 30 days. Then they just profit.',
   },
 ]
 

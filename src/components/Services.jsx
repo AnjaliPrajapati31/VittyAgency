@@ -6,7 +6,7 @@ const SERVICES = [
   {
     num: '01', tag: 'AUTOMATION',
     name: 'AI Business Automation',
-    desc: 'We audit every process in your coaching operation — from lead discovery to programme completion — and replace manual, fragmented steps with seamless automated flows. One unified system replaces 5–10 disconnected tools.',
+    desc: 'We audit every process in your coaching operation, from lead discovery to programme completion and replace manual, fragmented steps with seamless automated flows. One unified system replaces 5–10 disconnected tools.',
     icon: (
       <svg viewBox="0 0 56 56" fill="none">
         <rect x="4" y="4" width="48" height="48" rx="2" stroke="rgba(26,74,255,0.4)" strokeWidth="1"/>
@@ -20,7 +20,7 @@ const SERVICES = [
   {
     num: '02', tag: 'LEADS',
     name: 'Lead Generation Systems',
-    desc: 'Lead generation systems that fill your pipeline 24/7 — no ad spend required. Follow-up automation that converts 3x more leads with zero extra sales effort, operating around the clock.',
+    desc: 'Lead generation systems that fill your pipeline 24/7, no ad spend required. Follow-up automation that converts 3x more leads with zero extra sales effort, operating around the clock.',
     icon: (
       <svg viewBox="0 0 56 56" fill="none">
         <circle cx="28" cy="28" r="22" stroke="rgba(26,74,255,0.4)" strokeWidth="1"/>
@@ -36,7 +36,7 @@ const SERVICES = [
   {
     num: '03', tag: 'OPERATIONS',
     name: 'CRM & Workflow Integration',
-    desc: 'WhatsApp, email, and CRM all connected — one action triggers everything downstream. Smart workflows that route tasks, flag priorities, and eliminate decision fatigue so your team only does high-value work.',
+    desc: 'WhatsApp, email, and CRM all connected: one action triggers everything downstream. Smart workflows that route tasks, flag priorities, and eliminate decision fatigue so your team only does high-value work.',
     icon: (
       <svg viewBox="0 0 56 56" fill="none">
         <circle cx="16" cy="28" r="8" stroke="rgba(26,74,255,0.4)" strokeWidth="1"/>

@@ -108,7 +108,7 @@ export default function Contact() {
           <span style={{ color: 'var(--cyan)' }}>ON AUTOPILOT?</span>
         </h2>
         <p style={{ color: 'var(--white-muted)', lineHeight: 1.8, marginBottom: '2rem', fontSize: '0.96rem' }}>
-          Book a free 30-minute AI Audit. We'll show you exactly where your business is leaking time and money — and give you a custom roadmap with projected ROI. No commitment required. Walk away with a clear, actionable plan — even if you don't hire us.
+          Book a free 30-minute AI Audit. We'll show you exactly where your business is leaking time and money and give you a custom roadmap with projected ROI. No commitment required. Walk away with a clear, actionable plan, even if you don't hire us.
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2rem' }}>

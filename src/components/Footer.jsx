@@ -75,7 +75,7 @@ export default function Footer() {
             fontSize: '0.88rem', lineHeight: 1.75,
             color: 'var(--white-muted)', marginBottom: '1.8rem', maxWidth: 280,
           }}>
-            We build intelligent AI automation systems for business coaches — eliminating operational complexity and delivering measurable ROI within 30 days.
+            We build intelligent AI automation systems for business coaches, eliminating operational complexity and delivering measurable ROI within 30 days.
           </p>
           <div style={{ display: 'flex', gap: '0.7rem' }}>
             {[

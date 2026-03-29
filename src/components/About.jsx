@@ -4,9 +4,9 @@ import useReveal from './useReveal.js'
 import { SectionLabel } from './Services.jsx'
 
 const PILLARS = [
-  { icon: '⚡', title: 'Ease of Business', desc: 'Remove complexity. Simplify every process. Your business should run itself — and we make that real.' },
+  { icon: '⚡', title: 'Ease of Business', desc: 'Remove complexity. Simplify every process. Your business should run itself and we make that real.' },
   { icon: '💰', title: 'Save Time & Cost', desc: 'Recover 40+ hours/week. Eliminate $8,000–$15,000/month in operational cost within the first 60 days.' },
-  { icon: '📈', title: 'High ROI Automation', desc: 'Every system is measured against clear KPIs. Clients average 5x ROI within 90 days — as a baseline, not a goal.' },
+  { icon: '📈', title: 'High ROI Automation', desc: 'Every system is measured against clear KPIs. Clients average 5x ROI within 90 days as a baseline, not a goal.' },
 ]
 
 export default function About() {
@@ -158,7 +158,7 @@ export default function About() {
           NOT CHAOS
         </h2>
         <p style={{ color: 'var(--white-muted)', lineHeight: 1.8, marginBottom: '1.8rem', fontSize: '0.96rem' }}>
-          Vitty Agency was built on one conviction: most coaching businesses are drowning in operational complexity when they should be focused on their craft. We are not a software subscription. We are not a course. We are a full-service AI automation agency that builds intelligent systems specifically for business coaches — and we measure our success by three things.
+          Vitty Agency was built on one conviction: most coaching businesses are drowning in operational complexity when they should be focused on their craft. We are not a software subscription. We are not a course. We are a full-service AI automation agency that builds intelligent systems specifically for business coaches and we measure our success by three things.
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
